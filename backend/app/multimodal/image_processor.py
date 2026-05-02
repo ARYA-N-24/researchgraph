@@ -81,10 +81,6 @@ class ImageProcessor:
 
     def explain_all_images(self):
 
-        """
-        Process all extracted images.
-        """
-
         explanations = {}
 
         if not os.path.exists(
@@ -96,7 +92,9 @@ class ImageProcessor:
             self.image_dir
         ):
 
-            if file.endswith(".png"):
+            if file.endswith(
+                (".png", ".jpg", ".jpeg")
+            ):
 
                 image_path = os.path.join(
                     self.image_dir,

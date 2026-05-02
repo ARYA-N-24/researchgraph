@@ -62,7 +62,7 @@ class Settings:
 
     EMBEDDING_MODEL = "nomic-embed-text"
 
-    LLM_MODEL = "llama3"
+    LLM_MODEL = "phi3"
 
     MODEL_PROVIDER = "ollama"
 

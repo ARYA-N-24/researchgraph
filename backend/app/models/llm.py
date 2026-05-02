@@ -12,7 +12,7 @@ class LLMModel:
     def __init__(self):
 
         self.llm = OllamaLLM(
-            model=settings.LLM_MODEL
+            model="phi3"
         )
 
     def generate_answer(

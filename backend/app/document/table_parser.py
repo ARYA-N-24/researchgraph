@@ -1,96 +1,123 @@
 import os
 import camelot
-import pandas as pd
 
 from app.config import settings
 
 
 class TableParser:
+
     """
-    Extract tables from PDF files.
+    Extract tables from PDFs
+    and convert to text chunks.
     """
 
     def __init__(self):
 
-        self.table_dir = settings.TABLES_DIR
+        self.documents_dir = (
+            settings.DOCUMENTS_DIR
+        )
+
+        self.tables_dir = (
+            settings.TABLES_DIR
+        )
 
         os.makedirs(
-            self.table_dir,
+            self.tables_dir,
             exist_ok=True
         )
 
-    def extract_tables(self, pdf_path):
 
-        """
-        Extract tables using Camelot.
-        """
+    def extract_tables_from_pdf(
+        self,
+        pdf_path
+    ):
 
-        extracted_tables = []
+        table_chunks = []
 
         try:
 
             tables = camelot.read_pdf(
                 pdf_path,
-                pages="all"
+                pages="all",
+                flavor="lattice"
+            )
+
+            print(
+                f"📊 Found {tables.n} tables in {pdf_path}"
             )
 
             for i, table in enumerate(tables):
 
-                file_name = (
-                    f"table_{i+1}.csv"
+                df = table.df
+
+                csv_path = os.path.join(
+
+                    self.tables_dir,
+
+                    f"{os.path.basename(pdf_path)}_table_{i}.csv"
+
                 )
 
-                table_path = os.path.join(
-                    self.table_dir,
-                    file_name
-                )
-
-                table.df.to_csv(
-                    table_path,
+                df.to_csv(
+                    csv_path,
                     index=False
                 )
 
-                extracted_tables.append(
-                    table_path
-                )
+                table_text = df.to_string()
+
+                table_chunks.append({
+
+                    "content":
+                    f"Table from {pdf_path}\n{table_text}",
+
+                    "metadata": {
+
+                        "source": csv_path,
+
+                        "type": "table"
+
+                    }
+
+                })
 
         except Exception as e:
 
             print(
-                f"Table extraction error: {e}"
+                f"⚠️ Table extraction error: {e}"
             )
 
-        return extracted_tables
+        return table_chunks
 
 
-    def tables_to_text(self):
+    def extract_all_tables(self):
 
-        """
-        Convert tables to text format.
-        """
-
-        table_chunks = []
+        all_tables = []
 
         for file in os.listdir(
-            self.table_dir
+            self.documents_dir
         ):
 
-            if file.endswith(".csv"):
+            if file.endswith(".pdf"):
 
-                path = os.path.join(
-                    self.table_dir,
+                pdf_path = os.path.join(
+                    self.documents_dir,
                     file
                 )
 
-                df = pd.read_csv(path)
+                tables = (
 
-                text = df.to_string()
+                    self.extract_tables_from_pdf(
+                        pdf_path
+                    )
 
-                table_chunks.append({
+                )
 
-                    "content": text,
-                    "source": file
+                all_tables.extend(
+                    tables
+                )
 
-                })
+        print(
+            f"📊 Total tables extracted: {len(all_tables)}"
+        )
 
-        return table_chunks
+        return all_tables

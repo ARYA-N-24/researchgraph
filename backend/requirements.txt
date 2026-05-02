@@ -1,43 +1,44 @@
-fastapi
-uvicorn
-python-multipart
-
-# LangChain
+# Core LangChain
 langchain
 langchain-community
+langchain-core
 langchain-ollama
 
-# Embeddings / Models
+# Ollama client
 ollama
-openai
 
 # Vector Database
-pinecone
+pinecone-client
 
-# PDF Processing
-pypdf
-PyMuPDF
-
-# Image Processing
-pillow
-open_clip_torch
-torch
-torchvision
-
-# Audio Processing
-openai-whisper
-
-# Graph Processing
-networkx
-
-# Data Handling
-numpy
-pandas
-
-# Utilities
+# Environment variables
 python-dotenv
+
+# Document processing
+pypdf
+python-docx
+unstructured
+
+# Image processing (for multimodal support)
+Pillow
+opencv-python
+
+# Audio processing (if used)
+pydub
+
+# Text splitting & utilities
+tiktoken
+
+# Numerical processing
+numpy
+
+# PCA (optional but recommended if experimenting)
+scikit-learn
+
+# Web interface (if using Streamlit)
+streamlit
+
+# HTTP requests
 requests
 
-# Optional (tables)
-camelot-py
-tabula-py
+# Progress tracking
+tqdm
