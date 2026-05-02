@@ -1,0 +1,43 @@
+fastapi
+uvicorn
+python-multipart
+
+# LangChain
+langchain
+langchain-community
+langchain-ollama
+
+# Embeddings / Models
+ollama
+openai
+
+# Vector Database
+pinecone
+
+# PDF Processing
+pypdf
+PyMuPDF
+
+# Image Processing
+pillow
+open_clip_torch
+torch
+torchvision
+
+# Audio Processing
+openai-whisper
+
+# Graph Processing
+networkx
+
+# Data Handling
+numpy
+pandas
+
+# Utilities
+python-dotenv
+requests
+
+# Optional (tables)
+camelot-py
+tabula-py
