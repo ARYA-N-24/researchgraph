@@ -211,7 +211,7 @@ Create:
 
 Add:
 
-PINECONE_API_KEY=pcsk_5V8opn_Cqx4RqQieovqQfnbEVCd97G6aLDHKeToYTA2t1A5kxNeFAJ2mJNfPsbjdYqGR2w
+PINECONE_API_KEY=your_key
 PINECONE_INDEX_NAME=researchgraph
 
 Arya N
